@@ -25,9 +25,9 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 
 project(mmkv)
 
-IF(APPLE)
-    add_compile_definitions(FORCE_POSIX)
-ENDIF()
+#IF(APPLE)
+#    add_compile_definitions(FORCE_POSIX)
+#ENDIF()
 
 add_subdirectory(../../Core Core)
 
@@ -78,6 +78,6 @@ target_link_libraries( # Specifies the target library.
                        # Links the target library to the log library
                        # included in the NDK.
                        #          ${log-lib}
-                       core
+                       mmkvcore
         pthread
         )

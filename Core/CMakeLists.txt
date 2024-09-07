@@ -30,7 +30,7 @@ IF(APPLE)
     SET(CMAKE_C_ARCHIVE_CREATE   "<CMAKE_AR> qc -S <TARGET> <LINK_FLAGS> <OBJECTS>")
     SET(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> qc -S <TARGET> <LINK_FLAGS> <OBJECTS>")
 
-    add_compile_definitions(FORCE_POSIX)
+    #add_compile_definitions(FORCE_POSIX)
 ENDIF()
 
 set(can_use_assembler TRUE)
@@ -62,14 +62,14 @@ ELSEIF(UNIX AND (NOT APPLE))
 ENDIF()
 
 
-project(core)
+project(mmkvcore)
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-add_library(core
+add_library(${PROJECT_NAME}
 
         # Sets the library as a shared library.
         STATIC
@@ -141,20 +141,20 @@ IF (MSVC OR (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64"))
     # .S files is not supported by MSVC.
     # x86_64 asm not supported in OHOS
 ELSE()
-    target_sources(core PRIVATE
+    target_sources(${PROJECT_NAME} PRIVATE
         aes/openssl/openssl_aesv8-armx.S
         aes/openssl/openssl_aes-armv4.S)
 ENDIF()
 
-target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 IF (WIN32)
     # MMKV can be used only with Unicode on Windows.
-    target_compile_definitions(core PUBLIC UNICODE)
-    target_compile_definitions(core PUBLIC _UNICODE)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC UNICODE)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC _UNICODE)
 ENDIF()
 
-set_target_properties(core PROPERTIES
+set_target_properties(${PROJECT_NAME} PROPERTIES
         CXX_STANDARD 20
         CXX_EXTENSIONS OFF
         POSITION_INDEPENDENT_CODE ON
@@ -165,8 +165,8 @@ find_library(zlib
         )
 
 IF (NOT zlib)
-    target_compile_definitions(core PUBLIC MMKV_EMBED_ZLIB=1)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC MMKV_EMBED_ZLIB=1)
 ELSE()
-    target_link_libraries(core ${zlib})
+    target_link_libraries(${PROJECT_NAME} ${zlib})
 ENDIF()
 
