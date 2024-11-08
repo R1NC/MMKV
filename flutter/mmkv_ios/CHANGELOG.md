@@ -1,4 +1,16 @@
 # MMKV Platform iOS Change Log
+## v2.0.0 / 2024-10-25
+Bump to 2.0 to setup a breaking change version.
+
+## v1.0.8 / 2024-10-24
+Rollback native lib to v1.3.x.
+
+## v1.0.7 / 2024-10-21
+Fix a compile error on setting wrong public headers.
+
+## v1.0.6 / 2024-10-21
+Keep up with native lib v2.0.0.
+
 ## v1.0.5 / 2024-07-26
 Keep up with native lib v1.3.9.
 
